@@ -53,12 +53,16 @@ int main() {
 
 	while(1) {
 
-		for(flag = 0;flag<10;flag++){
-			//回显键盘输入
-			j = *READ_IO(UART_BASE + rbr);
-			*WRITE_IO(UART_BASE + thr) = j;
-			delay();
+		
+		//回显键盘输入
+		j = *READ_IO(UART_BASE + rbr);
+		for(flag=0;flag<10;flag++,j++){
+			if(j>0x2f&&j<0x7b){
+				*WRITE_IO(UART_BASE + thr) = j;
+				delay();	
+			}
 		}
+		
 
 /*
 		flag = *READ_IO(UART_BASE + rbr);

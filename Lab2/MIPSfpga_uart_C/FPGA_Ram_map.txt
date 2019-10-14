@@ -33,43 +33,44 @@ LOAD main.o
  *fill*         0x00000000bfc0049c        0x4 00000000
                 0x00000000bfc004a0                _etext_init = ABSOLUTE (.)
 
-.text_ram       0x00000000bfc01000      0x2b8
+.text_ram       0x00000000bfc01000      0x2e8
                 0x00000000bfc01000                _ftext_ram = ABSOLUTE (.)
  *(.text)
  .text          0x00000000bfc01000       0x3c main.o
                 0x00000000bfc01000                delay
  *(.text.*)
- .text.startup  0x00000000bfc0103c      0x27c main.o
+ .text.startup  0x00000000bfc0103c      0x2a8 main.o
                 0x00000000bfc0103c                main
  *(.rodata)
  *(.rodata.*)
-                0x00000000bfc012b8                . = ALIGN (0x8)
-                0x00000000bfc012b8                _etext_ram = ABSOLUTE (.)
+                0x00000000bfc012e8                . = ALIGN (0x8)
+ *fill*         0x00000000bfc012e4        0x4 00000000
+                0x00000000bfc012e8                _etext_ram = ABSOLUTE (.)
 
-.data           0x00000000bfc012b8        0x0
-                0x00000000bfc012b8                _fdata_ram = ABSOLUTE (.)
+.data           0x00000000bfc012e8        0x0
+                0x00000000bfc012e8                _fdata_ram = ABSOLUTE (.)
  *(.data)
- .data          0x00000000bfc012b8        0x0 main.o
- .data          0x00000000bfc012b8        0x0 boot.o
-                0x00000000bfc012b8                . = ALIGN (0x8)
-                0x00000000bfc092b8                _gp = ABSOLUTE ((. + 0x8000))
+ .data          0x00000000bfc012e8        0x0 main.o
+ .data          0x00000000bfc012e8        0x0 boot.o
+                0x00000000bfc012e8                . = ALIGN (0x8)
+                0x00000000bfc092e8                _gp = ABSOLUTE ((. + 0x8000))
  *(.lit8)
  *(.lit4)
  *(.sdata)
-                0x00000000bfc012b8                . = ALIGN (0x8)
-                0x00000000bfc012b8                _edata_ram = ABSOLUTE (.)
-                0x00000000bfc012b8                _fbss = .
+                0x00000000bfc012e8                . = ALIGN (0x8)
+                0x00000000bfc012e8                _edata_ram = ABSOLUTE (.)
+                0x00000000bfc012e8                _fbss = .
 
 .sbss
  *(.sbss)
  *(.scommon)
 
-.bss            0x00000000bfc012b8        0x0
+.bss            0x00000000bfc012e8        0x0
  *(.bss)
- .bss           0x00000000bfc012b8        0x0 main.o
- .bss           0x00000000bfc012b8        0x0 boot.o
+ .bss           0x00000000bfc012e8        0x0 main.o
+ .bss           0x00000000bfc012e8        0x0 boot.o
  *(COMMON)
-                0x00000000bfc012b8                _end = .
+                0x00000000bfc012e8                _end = .
 
 .gptab.sdata
  *(.gptab.data)
@@ -82,7 +83,7 @@ LOAD main.o
 /DISCARD/
  *(.reginfo)
  *(.MIPS.abiflags)
-                0x00000000bfc012b8                _freemem = .
+                0x00000000bfc012e8                _freemem = .
 OUTPUT(FPGA_Ram.elf elf32-tradlittlemips)
 
 .pdr            0x0000000000000000      0x140
@@ -120,9 +121,9 @@ OUTPUT(FPGA_Ram.elf elf32-tradlittlemips)
 .debug_ranges   0x0000000000000000       0x18
  .debug_ranges  0x0000000000000000       0x18 main.o
 
-.debug_line     0x0000000000000000      0x227
- .debug_line    0x0000000000000000       0xe6 main.o
- .debug_line    0x00000000000000e6      0x141 boot.o
+.debug_line     0x0000000000000000      0x221
+ .debug_line    0x0000000000000000       0xe0 main.o
+ .debug_line    0x00000000000000e0      0x141 boot.o
 
 .debug_str      0x0000000000000000       0xd9
  .debug_str     0x0000000000000000       0xc3 main.o

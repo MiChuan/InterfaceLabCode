@@ -1,0 +1,58 @@
+﻿#PWM_w_Int_v1_0.v
+//location1
+	parameter integer PWM_PERIOD = 20,
+//location2
+	output wire Interrupt_out,
+	output wire [1:0] LEDs,
+	output wire [PWM_PERIOD - 1:0] PWM_Counter,
+	output wire [31:0] DutyCycle,
+//location3
+	.slv_reg0( DutyCycle )
+//location4
+	PWM_Controller_Int #(
+        .period( PWM_PERIOD )
+    )   PWM_inst (
+            .Clk( s00_axi_aclk ),
+            .DutyCycle( DutyCycle ),
+            .Reset( s00_axi_aresetn ),
+            .PWM_out( LEDs ),
+            .Interrupt( Interrupt_out ),
+            .count( PWM_Counter )
+    );
+	
+#PWM_w_Int_v1_0_S00_AXI.v
+output [31:0] slv_reg0,
+
+#需要添加到..\ip_repo\PWM_w_Int_1.0\hdl目录
+#PWM_Controller_Int.v
+module PWM_Controller_Int #(
+    parameter integer period = 20)
+(
+    input Clk,
+    input [31:0] DutyCycle,
+    input Reset,
+    output reg [1:0] PWM_out,
+    output reg Interrupt,
+    output reg [period-1:0] count
+);
+
+    always @(posedge Clk)
+        if(!Reset)
+            count <= 0;
+        else
+            count <= count + 1;
+            
+    always @(posedge Clk)
+        if(count < DutyCycle)
+            PWM_out <= 2'b01;
+        else
+            PWM_out <= 2'b10;
+    
+    always @(posedge Clk)
+        if(!Reset)
+            Interrupt <= 0;
+        else if(DutyCycle > 990000)
+            Interrupt <= 1;
+        else
+            Interrupt <= 0;
+endmodule

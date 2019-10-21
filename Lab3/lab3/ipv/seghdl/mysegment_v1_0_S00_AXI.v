@@ -15,7 +15,7 @@
 	)
 	(
 		// Users to add ports here
-        output slv_reg0,
+        output [31:0] slv_reg0,
 		// User ports ends
 		// Do not modify the ports beyond this line
 

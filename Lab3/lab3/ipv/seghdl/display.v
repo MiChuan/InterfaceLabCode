@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2018/05/08 12:28:11
+// Create Date: 2019/10/21 20:25:40
 // Design Name: 
 // Module Name: display
 // Project Name: 
@@ -71,7 +71,7 @@ module display(clk_axi,reset,F,mmg,d1_wx);
           4'hb:mmg=8'b10000011;//b  
           4'hc:mmg=8'b11000110;//c  
           4'hd:mmg=8'b10100001;//d  
-          4'he:mmg=8'b10000111;//e  
+          4'he:mmg=8'b10000110;//e  
           4'hf:mmg=8'b10001110;//f  
               //4'hf:mmg=8'b1111_1111;//?????  
           default : mmg= 8'b1100_0000;//0  

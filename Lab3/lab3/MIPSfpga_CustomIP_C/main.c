@@ -27,8 +27,7 @@
 #define dlm		ier
 
 #define PWM_BASE 0xB0C00000
-
-#define F_DATA_BASE 0xB0D00000
+#define SEG_BASE 0xB0F00000
 
 void delay();
 void uart_outbyte(char c);
@@ -97,18 +96,35 @@ int main() {
          * scale period from 0-999,000.  0 turns off LEDs, 999,000 is full brightness. */
 
         /* Write the duty_cycle width (Period) out to the PL PWM peripheral. */
-		
 		*WRITE_IO(PWM_BASE) = period * 110000;
 		
         delay( );
 		// End of PWM IP test
 
+		/*write 32bit data to 7-segment display from uart*/
+		switch (value)
+		{
+		case '0':
+			*WRITE_IO(SEG_BASE) = 0x00000000;//display 00000000
+			break;
+		
+		case '1':
+			*WRITE_IO(SEG_BASE) = 0x76543210;//display 76543210
+			break;
 
-		//my 7 seg-display
-		*WRITE_IO(F_DATA_BASE) = 0x00000000;//8个数码管都显示0，循环显示
+		case '2':
+			*WRITE_IO(SEG_BASE) = 0x01234567;
+			break;
 
-		delay( );
-		// End of myseg IP test
+		case '9':
+			*WRITE_IO(SEG_BASE) = 0xABCDEF88;//display ABCDEF88
+			break;
+
+		default:
+			*WRITE_IO(SEG_BASE) = 0xFFFFFFFF;//display FFFFFFFF
+			break;
+		}
+//		*WRITE_IO(SEG_BASE) = 0x76543210;//display 00000000	
 	}
 	
 	return 0;

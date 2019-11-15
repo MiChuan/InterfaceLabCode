@@ -1,0 +1,11 @@
+<RCC>
+  <qresource>
+    <file>icon/设 置.png</file>
+    <file>icon/曲线.png</file>
+    <file>icon/串口.png</file>
+    <file>icon/loading.png</file>
+    <file>icon/settings.png</file>
+    <file>icon/start.png</file>
+    <file>icon/stop.png</file>
+  </qresource>
+</RCC>
